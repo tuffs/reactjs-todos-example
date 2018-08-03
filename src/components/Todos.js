@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Input, Button, Checkbox, Icon } from 'antd';
 
 class Todos extends Component {
 	constructor(props) {
@@ -58,7 +59,7 @@ class Todos extends Component {
         			<li key={i}
         				style={{listStyle: 'none', paddingBottom: '25px'}}
         			>
-      					<input
+      					<Checkbox
       						name="toggleComplete"
       						type="checkbox"
       						onChange={() => this.handleTodoToggle(i)}
@@ -69,25 +70,34 @@ class Todos extends Component {
       						style={todo.completed ? { textDecoration: 'line-through' } : null }
       						onClick={() => this.handleTodoToggle(i)}
       					><strong>{todo.value}</strong></span>
-      					<button
-      						onClick={() => this.handleDeleteTodo(todo[i])}
+      					<Button
+      						type="primary"
+      						size="small"
+      						shape="circle"
+      						onClick={() => this.handleDeleteTodo(i)}
       					>
-      						x
-      					</button>
+      						<Icon type="right-square-o" />
+      					</Button>
         			</li>
         	))}
         </div>
-        <div>
+        <div style={{margin: '5px'}}>
         	<form onSubmit={this.handleFormSubmit}>
-        	<input
+        	<Input
         		type="text"
         		value={this.state.todo}
         		onChange={this.handleInputChange}
+        		style={{
+        			width: '300px'
+        		}}
         	/>
-        	<input
-        		type="submit"
-        		value="Add Todo Item"
-        	/>
+        	<Button	
+        		type="primary"
+        		onClick={this.handleFormSubmit}
+        		style={{margin: '5px'}}
+        	>
+        		Add Item
+        	</Button>
         	</form>
         </div>
       </div>
