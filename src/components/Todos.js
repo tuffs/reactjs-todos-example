@@ -53,7 +53,7 @@ class Todos extends Component {
 			<div
       	style={{marginLeft: '4px'}}
       >
-        <h3>Todos</h3>
+        <h2>Todos List</h2>
         <div>
         	{this.state.todos.map((todo, i) => (
         			<li key={i}
