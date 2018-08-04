@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Input, Button, Checkbox, Icon, Tooltip } from 'antd';
+import './Todos.less';
 
 class Todos extends Component {
 	constructor(props) {
@@ -31,7 +32,7 @@ class Todos extends Component {
 			});
 		}
 	};
-	handleTodoToggle = (index) => {
+	handleToggleTodo = (index) => {
 		const completed = !this.state.todos[index].completed;
 		const newState = {
 			todo: this.state.todo,
@@ -45,11 +46,9 @@ class Todos extends Component {
 			newState
 		);
 	};
-	handleDeleteTodo = (i) => {
-		var newTodosArray = [...this.state.todos];
-	  var index = newTodosArray[i];
-	  newTodosArray.splice(index, 1);
-	  this.setState({todos: newTodosArray});
+	handleDeleteTodo = (index) => {
+		const removedTodoArray = this.state.todos.filter((x, i) => i != index);
+	  this.setState({todos: removedTodoArray});
 	};
 	render() {
 		return (
@@ -67,13 +66,13 @@ class Todos extends Component {
 	      					<Checkbox
 	      						name="toggleComplete"
 	      						type="checkbox"
-	      						onChange={() => this.handleTodoToggle(i)}
+	      						onChange={() => this.handleToggleTodo(i)}
 	      						checked={todo.completed ? true : false}
 	      						style={{marginRight: '5px'}}
 	      					/>
 	      					<span
 	      						style={todo.completed ? { textDecoration: 'line-through' } : null }
-	      						onClick={() => this.handleTodoToggle(i)}
+	      						onClick={() => this.handleToggleTodo(i)}
 	      					><strong>{todo.value}</strong></span>
       					</Tooltip>
       					<Tooltip title="Delete Todo">
@@ -102,9 +101,11 @@ class Todos extends Component {
         	<Button	
         		type="primary"
         		onClick={this.handleFormSubmit}
-        		style={{margin: '5px'}}
+        		style={{margin: '5px', backgroundColor: 'lightgreen'}}
+        		className="addTodoButton"
         	>
-        		Add Item
+        		<Icon type="plus-circle" />
+        		Add Todo
         	</Button>
         	</form>
         </div>
