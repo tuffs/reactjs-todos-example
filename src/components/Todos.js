@@ -68,7 +68,7 @@ class Todos extends Component {
 	      						name="toggleComplete"
 	      						type="checkbox"
 	      						onChange={() => this.handleToggleTodo(i)}
-	      						checked={todo.completed ? true : false}
+	      						checked={todo.completed}
 	      						style={{marginRight: '5px'}}
 	      					/>
 	      					<span
@@ -106,8 +106,7 @@ class Todos extends Component {
         		type="primary"
         		onClick={this.handleFormSubmit}
         		style={{ 
-        			margin: '5px',
-        			backgroundColor: 'lightgreen'
+        			margin: '5px'
         		}}
         	>
         		<Icon type="plus-circle" />
