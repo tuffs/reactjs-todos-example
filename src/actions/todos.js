@@ -17,7 +17,7 @@ const saveTodo = function (value) {
 		};
 		todos = todos.concat(todo);
 	});
-}
+};
 
 export function handleAddTodo (value, cb) {
 	return (dispatch) => {

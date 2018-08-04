@@ -15,7 +15,10 @@ import './index.css';
 import 'antd/dist/antd.css';
 
 // Store
-const store = createStore(reducer);
+const store = createStore(
+	reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 // Render the app..
 ReactDOM.render(
