@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Button, Checkbox, Icon, Tooltip } from 'antd';
-import './Todos.less';
+import { Card, Input, Button, Checkbox, Icon, Tooltip } from 'antd';
 
 class Todos extends Component {
 	constructor(props) {
@@ -14,9 +13,7 @@ class Todos extends Component {
 		}
 	}
 	handleInputChange = (e) => {
-		this.setState({
-			todo: e.target.value
-		});
+		this.setState({ todo: e.target.value });
 	};
 	handleFormSubmit = (e) => {
 		e.preventDefault();
@@ -26,10 +23,7 @@ class Todos extends Component {
 				value: todo,
 				completed: false
 			};
-			this.setState({
-				todos: todos.concat(newTodo),
-				todo: ''
-			});
+			this.setState({ todos: todos.concat(newTodo), todo: '' });
 		}
 	};
 	handleToggleTodo = (index) => {
@@ -40,27 +34,34 @@ class Todos extends Component {
 				[...this.state.todos],
 				{[index]: Object.assign({}, index, { value: this.state.todos[index].value, completed })}
 			),
-			error: this.state.error
+
 		}
 		this.setState(
 			newState
 		);
 	};
 	handleDeleteTodo = (index) => {
-		const removedTodoArray = this.state.todos.filter((x, i) => i != index);
-	  this.setState({todos: removedTodoArray});
+		const newTodosArray = this.state.todos.filter((x, i) => i !== index);
+	  this.setState({todos: newTodosArray});
 	};
+	componentDidmount() {
+		this.nameInput.focus();
+	}
 	render() {
 		return (
 			<div
       	style={{marginLeft: '4px'}}
       >
-        <h2>Todos List</h2>
-        {this.state.error}
+        <h1>Todos List</h1>
+        <hr/>
         <div>
         	{this.state.todos.map((todo, i) => (
-        			<li key={i}
-        				style={{listStyle: 'none', paddingBottom: '25px'}}
+        			<Card key={i}
+        				style={{
+        					listStyle: 'none',
+        					marginBottom: '10px',
+        					width: '520px'
+        				}}
         			>
         				<Tooltip title="Mark todo as complete">
 	      					<Checkbox
@@ -75,34 +76,39 @@ class Todos extends Component {
 	      						onClick={() => this.handleToggleTodo(i)}
 	      					><strong>{todo.value}</strong></span>
       					</Tooltip>
-      					<Tooltip title="Delete Todo">
-	      					<Button
-	      					 	ghost
-	      						type="danger"
-	      						size="small"
-	      						onClick={() => this.handleDeleteTodo(i)}
-	      					>
-	      						<Icon type="delete" />
-	      					</Button>
-      					</Tooltip>
-        			</li>
+      					<div style={{float: 'right'}}>
+	      					<Tooltip title="Delete Todo">
+		      					<Button
+		      					 	ghost
+		      						type="danger"
+		      						size="small"
+		      						onClick={() => this.handleDeleteTodo(i)}
+		      					>
+		      						<Icon type="delete" />
+		      					</Button>
+	      					</Tooltip>
+      					</div>
+        			</Card>
         	))}
         </div>
-        <div style={{margin: '5px'}}>
+        <div style={{ margin: '5px' }}>
         	<form onSubmit={this.handleFormSubmit}>
         	<Input
         		type="text"
         		value={this.state.todo}
         		onChange={this.handleInputChange}
+        		ref={(input) => { this.nameInput = input; }}
         		style={{
-        			width: '300px'
+        			width: '400px'
         		}}
         	/>
         	<Button	
         		type="primary"
         		onClick={this.handleFormSubmit}
-        		style={{margin: '5px', backgroundColor: 'lightgreen'}}
-        		className="addTodoButton"
+        		style={{ 
+        			margin: '5px',
+        			backgroundColor: 'lightgreen'
+        		}}
         	>
         		<Icon type="plus-circle" />
         		Add Todo
